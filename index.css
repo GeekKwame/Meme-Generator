@@ -1,0 +1,231 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Karla", sans-serif;
+    margin: 0;
+}
+
+main {
+    margin-inline: auto;
+    padding: 36px;
+    max-width: 600px;
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 20px;
+    }
+    
+    .button-group {
+        grid-template-columns: 1fr;
+    }
+    
+    .form {
+        grid-template: auto auto auto / 1fr;
+    }
+    
+    .meme span {
+        font-size: clamp(1.2rem, 5vw, 1.8rem);
+    }
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    height: 65px;
+    background: linear-gradient(90deg, #672280 1.18%, #A626D3 100%);
+    color: white;
+    padding: 20px;
+}
+
+.header > img {
+    height: 100%;
+    margin-right: 6px;
+}
+
+.header > h1 {
+    font-size: 1.25rem;
+    margin-right: auto;
+}
+
+.form {
+    display: grid;
+    grid-template: auto auto / 1fr 1fr;
+    gap: 17px;
+    margin-bottom: 17px;
+}
+
+.form input {
+    width: 100%;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #D5D4D8;
+    text-indent: 5px;
+}
+
+.button-group {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.form button {
+    border-radius: 5px;
+    background: linear-gradient(90.41deg, #711F8D 1.14%, #A818DA 100%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-height: 40px;
+}
+
+.form button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(113, 31, 141, 0.3);
+}
+
+.form button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.form button.secondary {
+    background: linear-gradient(90.41deg, #6B7280 1.14%, #9CA3AF 100%);
+}
+
+.form button.secondary:hover:not(:disabled) {
+    box-shadow: 0 4px 8px rgba(107, 114, 128, 0.3);
+}
+
+.form button.download {
+    background: linear-gradient(90.41deg, #059669 1.14%, #10B981 100%);
+}
+
+.form button.download:hover:not(:disabled) {
+    box-shadow: 0 4px 8px rgba(5, 150, 105, 0.3);
+}
+
+.form input, .form button {
+    min-height: 40px;
+    font-family: "Karla", sans-serif;
+}
+
+.form input:focus {
+    outline: 2px solid #A818DA;
+    outline-offset: 2px;
+    border-color: #A818DA;
+}
+
+.error-message {
+    background-color: #FEE2E2;
+    color: #991B1B;
+    padding: 12px 16px;
+    border-radius: 5px;
+    margin-bottom: 17px;
+    border: 1px solid #FCA5A5;
+    font-weight: 500;
+}
+
+.meme {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    min-height: 300px;
+}
+
+.meme > img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.meme > img:hover {
+    transform: scale(1.02);
+}
+
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: 300px;
+    color: #6B7280;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #E5E7EB;
+    border-top-color: #A818DA;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-spinner p {
+    margin: 0;
+    font-weight: 500;
+}
+
+.meme span {
+    position: absolute;
+    text-align: center;
+    margin-block: 15px;
+    padding-inline: 5px;
+    font-family: impact, sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 1px;
+    max-width: 90%;
+    word-wrap: break-word;
+    text-shadow:
+        2px 2px 0 #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        0 2px 0 #000,
+        2px 0 0 #000,
+        0 -2px 0 #000,
+        -2px 0 0 #000,
+        2px 2px 5px #000;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.bottom {
+    bottom: 0;
+}
+
+.top {
+    top: 0;
+}
