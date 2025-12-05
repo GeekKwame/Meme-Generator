@@ -1,6 +1,8 @@
+import { memo } from "react"
 import trollFace from "../images/troll-face.png"
+import ThemeToggle from "./ThemeToggle"
 
-export default function Header() {
+function Header() {
     return (
         <header className="header">
             <img 
@@ -9,6 +11,9 @@ export default function Header() {
                 aria-hidden="true"
             />
             <h1>Meme Generator</h1>
+            <ThemeToggle />
         </header>
     )
 }
+
+export default memo(Header)

@@ -1,3 +1,29 @@
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --border-color: #d5d4d8;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --error-bg: #fee2e2;
+    --error-text: #991b1b;
+    --success-bg: #d1fae5;
+    --success-text: #065f46;
+}
+
+[data-theme="dark"] {
+    --bg-primary: #1f2937;
+    --bg-secondary: #111827;
+    --text-primary: #f9fafb;
+    --text-secondary: #9ca3af;
+    --border-color: #374151;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --error-bg: #7f1d1d;
+    --error-text: #fca5a5;
+    --success-bg: #064e3b;
+    --success-text: #6ee7b7;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -5,12 +31,16 @@
 body {
     font-family: "Karla", sans-serif;
     margin: 0;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 main {
     margin-inline: auto;
     padding: 36px;
     max-width: 600px;
+    background-color: var(--bg-primary);
 }
 
 @media (max-width: 768px) {
@@ -19,11 +49,11 @@ main {
     }
     
     .button-group {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
     }
     
     .form {
-        grid-template: auto auto auto / 1fr;
+        grid-template: auto auto auto / 1fr !important;
     }
     
     .meme span {
@@ -38,6 +68,7 @@ main {
     background: linear-gradient(90deg, #672280 1.18%, #A626D3 100%);
     color: white;
     padding: 20px;
+    position: relative;
 }
 
 .header > img {
@@ -50,6 +81,25 @@ main {
     margin-right: auto;
 }
 
+.theme-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
 .form {
     display: grid;
     grid-template: auto auto / 1fr 1fr;
@@ -57,22 +107,62 @@ main {
     margin-bottom: 17px;
 }
 
-.form input {
+.form input[type="text"] {
     width: 100%;
     margin-top: 5px;
     border-radius: 5px;
-    border: 1px solid #D5D4D8;
+    border: 1px solid var(--border-color);
     text-indent: 5px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.text-customization {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 17px;
+    padding: 15px;
+    background-color: var(--bg-secondary);
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+}
+
+.text-customization label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.text-customization input[type="range"] {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.text-customization input[type="color"] {
+    width: 100%;
+    height: 40px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.text-customization span {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
 }
 
 .button-group {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 10px;
+    margin-bottom: 17px;
 }
 
-.form button {
+.form button,
+.button-group button {
     border-radius: 5px;
     background: linear-gradient(90.41deg, #711F8D 1.14%, #A818DA 100%);
     color: white;
@@ -81,41 +171,55 @@ main {
     font-weight: 600;
     transition: all 0.3s ease;
     min-height: 40px;
+    font-family: "Karla", sans-serif;
+    padding: 8px 16px;
 }
 
-.form button:hover:not(:disabled) {
+.form button:hover:not(:disabled),
+.button-group button:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(113, 31, 141, 0.3);
 }
 
-.form button:active:not(:disabled) {
+.form button:active:not(:disabled),
+.button-group button:active:not(:disabled) {
     transform: translateY(0);
 }
 
-.form button:disabled {
+.form button:disabled,
+.button-group button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
 
-.form button.secondary {
+.form button.secondary,
+.button-group button.secondary {
     background: linear-gradient(90.41deg, #6B7280 1.14%, #9CA3AF 100%);
 }
 
-.form button.secondary:hover:not(:disabled) {
+.form button.secondary:hover:not(:disabled),
+.button-group button.secondary:hover:not(:disabled) {
     box-shadow: 0 4px 8px rgba(107, 114, 128, 0.3);
 }
 
-.form button.download {
+.form button.download,
+.button-group button.download {
     background: linear-gradient(90.41deg, #059669 1.14%, #10B981 100%);
 }
 
-.form button.download:hover:not(:disabled) {
+.form button.download:hover:not(:disabled),
+.button-group button.download:hover:not(:disabled) {
     box-shadow: 0 4px 8px rgba(5, 150, 105, 0.3);
 }
 
-.form input, .form button {
-    min-height: 40px;
-    font-family: "Karla", sans-serif;
+.form button.share,
+.button-group button.share {
+    background: linear-gradient(90.41deg, #2563EB 1.14%, #3B82F6 100%);
+}
+
+.form button.share:hover:not(:disabled),
+.button-group button.share:hover:not(:disabled) {
+    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
 }
 
 .form input:focus {
@@ -125,13 +229,56 @@ main {
 }
 
 .error-message {
-    background-color: #FEE2E2;
-    color: #991B1B;
+    background-color: var(--error-bg);
+    color: var(--error-text);
     padding: 12px 16px;
     border-radius: 5px;
     margin-bottom: 17px;
-    border: 1px solid #FCA5A5;
+    border: 1px solid var(--error-text);
     font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.error-close {
+    background: none;
+    border: none;
+    color: var(--error-text);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.success-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--success-bg);
+    color: var(--success-text);
+    padding: 12px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px var(--shadow);
+    z-index: 1000;
+    font-weight: 500;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 .meme {
@@ -148,7 +295,7 @@ main {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px var(--shadow);
     transition: transform 0.3s ease;
 }
 
@@ -163,13 +310,13 @@ main {
     justify-content: center;
     gap: 20px;
     min-height: 300px;
-    color: #6B7280;
+    color: var(--text-secondary);
 }
 
 .spinner {
     width: 50px;
     height: 50px;
-    border: 4px solid #E5E7EB;
+    border: 4px solid var(--border-color);
     border-top-color: #A818DA;
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -228,4 +375,257 @@ main {
 
 .top {
     top: 0;
+}
+
+/* Meme Search Modal */
+.meme-search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.meme-search-modal {
+    background-color: var(--bg-primary);
+    border-radius: 8px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 40px var(--shadow);
+}
+
+.meme-search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.meme-search-header h3 {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover {
+    color: var(--text-primary);
+}
+
+.meme-search-input {
+    margin: 20px;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.meme-search-results {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.meme-search-item {
+    cursor: pointer;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.meme-search-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px var(--shadow);
+    border-color: #A818DA;
+}
+
+.meme-search-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.meme-search-item p {
+    padding: 8px;
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    text-align: center;
+    background-color: var(--bg-secondary);
+}
+
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 40px;
+}
+
+/* Meme History Modal */
+.meme-history-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.meme-history-modal {
+    background-color: var(--bg-primary);
+    border-radius: 8px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 40px var(--shadow);
+}
+
+.meme-history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.meme-history-header h3 {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.meme-history-header > div {
+    display: flex;
+    gap: 10px;
+}
+
+.clear-history-btn {
+    background: linear-gradient(90.41deg, #DC2626 1.14%, #EF4444 100%);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.clear-history-btn:hover {
+    opacity: 0.9;
+}
+
+.meme-history-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.meme-history-item {
+    cursor: pointer;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.meme-history-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px var(--shadow);
+    border-color: #A818DA;
+}
+
+.meme-history-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.meme-history-item p {
+    padding: 8px;
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--text-primary);
+    text-align: center;
+    background-color: var(--bg-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Error Boundary */
+.error-boundary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px;
+    text-align: center;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.error-boundary h2 {
+    color: var(--error-text);
+    margin-bottom: 16px;
+}
+
+.error-boundary p {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.error-retry-button {
+    background: linear-gradient(90.41deg, #711F8D 1.14%, #A818DA 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.error-retry-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(113, 31, 141, 0.3);
 }
